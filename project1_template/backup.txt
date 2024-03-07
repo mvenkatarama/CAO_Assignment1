@@ -1,0 +1,50 @@
+unsigned int memory[MEM_SIZE];
+// Function to read bits from the text area of memory (Step 2)
+unsigned int readBitsFromMemory(unsigned int address) {
+    // Simulated memory read, you may replace this with actual memory access logic
+    // Note: Assuming 8 bits per instruction for simplicity
+    printf("Mem Address : %d", memory[address]);
+    return memory[address];
+}
+
+// Function to decode bits into instruction (Step 3)
+void decodeAndExecuteInstruction(CPU_t* cpu, unsigned int bits) {
+    // Simulated decoding logic, you should replace this with actual instruction decoding
+    // and execution logic based on your architecture
+    // For now, let's assume bits represent a simple instruction to increment register R0
+    if (bits == 0x01) {
+        // Increment R0
+        cpu->registers[0]++;
+        // Increment instruction counter
+        cpu->stats[0]++;
+    } else if (bits == 0x02) {
+        // Add instruction (replace with actual logic)
+        // Increment instruction counter
+        cpu->stats[1]++;
+    }
+    // Add more cases for other instructions as needed
+}
+    
+    
+    
+        // Main loop for simulation
+    // Assume instruction size is 1 byte for simplicity, replace with actual size
+    unsigned int instructionAddress = 0;
+    while (instructionAddress < 1000) {
+        // Read bits from memory (Step 2)
+        unsigned int bits = readBitsFromMemory(instructionAddress);
+
+        // Decode and execute instruction (Step 3 & 4)
+        decodeAndExecuteInstruction(&cpu, bits);
+
+        // Increment instruction address
+        instructionAddress++;
+
+        // Uncomment the following line for debugging to see registers and stats after each instruction
+        // print_registers(cpu.registers);
+        // print_statistics(cpu.stats);
+    }
+
+
+==================================================================================================================
+==================================================================================================================
