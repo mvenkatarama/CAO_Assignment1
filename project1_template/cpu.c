@@ -8,8 +8,9 @@ CPU_t cpu;
 int readFile(const char *filePath) {
     FILE *binaryFile;
     unsigned int instructionBuffer[1];
+    instructionBuffer[0] = 0;
 
-    // Open the binary file in binary mode
+    // printf("FilePath : %s", filePath);
     binaryFile = fopen(filePath, "rb");
 
     if (binaryFile == NULL) {
@@ -17,17 +18,15 @@ int readFile(const char *filePath) {
         return 1;
     }
 
-    // Read instructions from the file
     int iteration = 50;
-    int i =1;
     unsigned int rx=0, ry=0, rz=0, imm_value1=0, imm_value2=0, first_byte=0, second_byte=0, temp = 0;
     int flag = 1;
+    // printf("\nCheckpoint 1\n");
     while (fread(instructionBuffer, 1, 1, binaryFile) == 1 && flag==1) {
-        // Process the instruction (you need to implement this part)
-        // For now, let's print the hexadecimal representation of the instruction
         // printf("\nRead Instruction %d: 0x%02X", i, instructionBuffer[0]);
         int number_of_operands = 0;
         cpu.stats[9]+=1;
+	// printf("\n%d", instructionBuffer[0]);
         switch (instructionBuffer[0])
         {
         case 0x01:
@@ -298,15 +297,7 @@ int readFile(const char *filePath) {
             break;
         }
         
-        // Additional processing based on your requirements
-
-        // Move to the next instruction in the file
-        // Note: If your instructions are of variable size, you need additional logic
-        // to determine the size and move the file pointer accordingly.
-        // For fixed-size instructions, you can use fseek:
-        // fseek(binaryFile, INSTRUCTION_SIZE, SEEK_CUR);
         iteration-=1;
-        i+=1;
     }
 
     // Close the file when done
@@ -329,9 +320,9 @@ int main(int argc, char const *argv[])
         cpu.stats[i] = 0;
     }
 
-    printf("%d\n", argc);
-    printf("%s\n", argv[0]);
-    printf("%s\n", argv[1]);
+    // printf("%d\n", argc);
+    // printf("%s\n", argv[0]);
+    // printf("%s\n", argv[1]);
 
     readFile(argv[1]);
 
